@@ -2,71 +2,87 @@
 #include <atomic>
 #include <stdint.h>
 
-enum class type{
-    ORDINARY,
-    MIN,
-    MAX,
-    CUMULATIVE
+template <class T> class Counter;
+template <class T> class MinCounter;
+template <class T> class MaxCounter;
+template <class T> class CumulativeCounter;
+template <class T> class OrdinaryCounter;
+
+
+template <class T>
+class Counter{
+    protected:
+        T _defaultValue;
+        std::atomic<T> _value;
+    public:
+        T dump(){
+            return std::atomic_exchange(&_value, _defaultValue);
+        }
+
+        virtual void set(T n) = 0;
+
+        T get(){
+            return _value.load();
+        }
 };
 
 template <class T>
-struct Counter{
-    private:
-    T _defaultValue;
-    std::atomic<T> _value;
-    type _type;
-    public:
-    Counter(type t){ 
-        switch (t){
-            case type::MIN : { 
-                _defaultValue = -1; 
-                break;
-            }
-            default:{
-                _defaultValue = 0;
-                break;
-            }
-        }
-        _value.store(_defaultValue);
-        _type = t;
+class MinCounter final : public Counter<T> {
+    void set(T n) override{
+        T prev = Counter<T>::_value.load();
+        while(prev > n && !Counter<T>::_value.compare_exchange_weak(prev,n)){};
+    }
+    MinCounter() {
+        std::cout << "Mincounter ctor" << std::endl;
+        Counter<T>::_defaultValue = -1;
+        Counter<T>::_value.store(Counter<T>::_defaultValue);
         std::cout << "Created counter. Size=" << sizeof(*this) << std::endl;
-    }   
+    }
+};
 
-    T dump(){
-        return std::atomic_exchange(&_value, _defaultValue);
-    }   
+template <class T>
+class MaxCounter final : public Counter<T> {
+    void set(T n) override{
+        T prev = Counter<T>::_value.load();
+        while(prev < n && !Counter<T>::_value.compare_exchange_weak(prev,n)){};
+    }
+    MaxCounter(){
+        std::cout << "MaxCounter ctor" << std::endl;
+        Counter<T>::_defaultValue = 0;
+        Counter<T>::_value.store(Counter<T>::_defaultValue);
+        std::cout << "Created counter. Size=" << sizeof(*this) << std::endl;
+    }
+};
 
-    void set(T n){ 
-        switch (_type){
-            case type::MIN : { 
-                T prev = _value.load();
-                while(prev > n && !_value.compare_exchange_weak(prev,n)){};
-                break;
-            }
-            case type::MAX : { 
-                T prev = _value.load();
-                while(prev < n && !_value.compare_exchange_weak(prev,n)){};
-                break;
-            }
-            case type::ORDINARY : { 
-                _value.store(n);
-                break;
-            }
-            case type::CUMULATIVE : { 
-                _value+=n;
-                break;
-            }
-        }
-    }   
-    T get(){
-        return _value.load();
-    }   
+template <class T>
+class CumulativeCounter final : public Counter<T> {
+    void set(T n) override{
+        Counter<T>::_value+=n;
+    }
+    CumulativeCounter(){
+        std::cout << "CumulativeCounter ctor" << std::endl;
+        Counter<T>::_defaultValue = 0;
+        Counter<T>::_value.store(Counter<T>::_defaultValue);
+        std::cout << "Created counter. Size=" << sizeof(*this) << std::endl;
+    }
+};
 
+template <class T>
+class OrdinaryCounter final : public Counter<T> {
+    void set(T n) override{
+        Counter<T>::_value.store(n);
+    }
+    OrdinaryCounter(){
+        std::cout << "OrdinaryCounter ctor" << std::endl;
+        Counter<T>::_defaultValue = 0;
+        Counter<T>::_value.store(Counter<T>::_defaultValue);
+        std::cout << "Created counter. Size=" << sizeof(*this) << std::endl;
+    }
 };
 
 
 int main () {
-    Counter<uint64_t>max(type::MAX);
+    MinCounter<uint64_t>max();
 
     std::cout << "Max.get() = " << max.get() << std::endl;
     max.set(15);
