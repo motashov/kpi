@@ -1,4 +1,4 @@
-#include "../include/counters.hpp"
+#include "include/counters.hpp"
 
 int main () {
     MaxCounter<uint64_t> counter;
