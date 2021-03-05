@@ -1,8 +1,13 @@
-template <class T> class Counter;
-template <class T> class MinCounter;
-template <class T> class MaxCounter;
-template <class T> class CumulativeCounter;
-template <class T> class OrdinaryCounter;
+#include <iostream>
+#include <atomic>
+#include <stdint.h>
+
+
+#include "counters/minCounter.hpp"
+#include "counters/maxCounter.hpp"
+#include "counters/cumulativeCounter.hpp"
+#include "counters/ordinaryCounter.hpp"
+
 
 template <class T>
 class Counter{
