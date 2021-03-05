@@ -3,8 +3,11 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 set(LIBNAME kpi)
 
-file(GLOB_RECURSE SRCLIST
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/kpi/*.cpp
+FILE(GLOB COUNTERS_LIST ${CMAKE_CURRENT_SOURCE_DIR}/src/kpi/counters/*.cpp)
+
+set(SRCLIST
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/kpi/counters.cpp
+    ${COUNTERS_LIST}
     )
 
 add_library(${LIBNAME}
