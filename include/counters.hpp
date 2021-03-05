@@ -8,7 +8,7 @@
 #include "counters/cumulativeCounter.hpp"
 #include "counters/ordinaryCounter.hpp"
 
-
+//Abstract base class
 template <class T>
 class Counter{
     protected:
