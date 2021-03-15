@@ -1,8 +1,7 @@
-template <class T> class Counter;
-template <class T>
-class MaxCounter final : public Counter<T> {
+#pragma once
+
+class MaxCounter final : public Counter{
     public:
-    void set(T n) override;
+    void set(std::uint64_t n) override;
     MaxCounter();
 };
-

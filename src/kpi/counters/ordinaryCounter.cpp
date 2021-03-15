@@ -1,17 +1,15 @@
 #include "counters.hpp"
 
-template <class T>
-void OrdinaryCounter<T>::set(T n)
+void OrdinaryCounter::set(std::uint64_t n)
 {
-        Counter<T>::_value.store(n);
+        Counter::_value.store(n);
 }
 
-template <class T>
-OrdinaryCounter<T>::OrdinaryCounter()
+OrdinaryCounter::OrdinaryCounter()
 {
         std::cout << "OrdinaryCounter ctor" << std::endl;
-        Counter<T>::_defaultValue = 0;
-        Counter<T>::_value.store(Counter<T>::_defaultValue);
+        Counter::_defaultValue = 0;
+        Counter::_value.store(Counter::_defaultValue);
         std::cout << "Created counter. Type=Ordinary Size=" << sizeof(*this) << std::endl;
 }
 

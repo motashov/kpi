@@ -1,22 +1,20 @@
+#pragma once
 #include <iostream>
 #include <atomic>
-#include <stdint.h>
 
+
+//Abstract base class
+class Counter{
+    protected:
+        std::uint64_t _defaultValue;
+        std::atomic<std::uint64_t> _value;
+    public:
+        std::uint64_t dump();
+        virtual void set(std::uint64_t n) = 0;
+        std::uint64_t get();
+};
 
 #include "counters/minCounter.hpp"
 #include "counters/maxCounter.hpp"
 #include "counters/cumulativeCounter.hpp"
 #include "counters/ordinaryCounter.hpp"
-
-//Abstract base class
-template <class T>
-class Counter{
-    protected:
-        T _defaultValue;
-        std::atomic<T> _value;
-    public:
-        T dump();
-        virtual void set(T n) = 0;
-        T get();
-};
-

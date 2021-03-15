@@ -1,13 +1,11 @@
 #include "counters.hpp"
 
-template <class T>
-T Counter<T>::dump()
+std::uint64_t Counter::dump()
 {
     return std::atomic_exchange(&_value, _defaultValue);
 }
 
-template <class T>
-T Counter<T>::get(){
+std::uint64_t Counter::get(){
     return _value.load();
 }
 

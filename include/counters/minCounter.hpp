@@ -1,9 +1,8 @@
+#pragma once
 
-template <class T> class Counter;
-template <class T>
-class MinCounter final : public Counter<T> {
+class MinCounter final : public Counter {
     public:
-    void set(T n) override;
+    void set(std::uint64_t n) override;
     MinCounter();
 };
 

@@ -1,7 +1,7 @@
 #include "include/counters.hpp"
 
 int main () {
-    MaxCounter<uint64_t> counter;
+    MinCounter counter;
 
     std::cout << "get() = " << counter.get() << std::endl;
     counter.set(15);

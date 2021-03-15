@@ -1,18 +1,15 @@
 #include "counters.hpp"
 
-template <class T>
-void MaxCounter<T>::set(T n)
+void MaxCounter::set(std::uint64_t n)
 {
-        T prev = Counter<T>::_value.load();
-        while(prev < n && !Counter<T>::_value.compare_exchange_weak(prev,n)){};
+        std::uint64_t prev = Counter::_value.load();
+        while(prev < n && !Counter::_value.compare_exchange_weak(prev,n)){};
 }
 
-template <class T>
-MaxCounter<T>::MaxCounter()
+MaxCounter::MaxCounter()
 {
         std::cout << "Maxcounter ctor" << std::endl;
-        Counter<T>::_defaultValue = -1;
-        Counter<T>::_value.store(Counter<T>::_defaultValue);
+        Counter::_defaultValue = -1;
+        Counter::_value.store(Counter::_defaultValue);
         std::cout << "Created counter. Type=Max Size=" << sizeof(*this) << std::endl;
 }
-

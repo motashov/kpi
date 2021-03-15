@@ -1,8 +1,7 @@
-template <class T> class Counter;
+#pragma once
 
-template <class T>
-class CumulativeCounter final : public Counter<T> {
+class CumulativeCounter final : public Counter {
     public:
-    void set(T n) override;
+    void set(std::uint64_t n) override;
     CumulativeCounter();
 };
