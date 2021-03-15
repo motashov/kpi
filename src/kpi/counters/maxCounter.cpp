@@ -13,6 +13,6 @@ MaxCounter<T>::MaxCounter()
         std::cout << "Maxcounter ctor" << std::endl;
         Counter<T>::_defaultValue = -1;
         Counter<T>::_value.store(Counter<T>::_defaultValue);
-        std::cout << "Created counter. Size=" << sizeof(*this) << std::endl;
+        std::cout << "Created counter. Type=Max Size=" << sizeof(*this) << std::endl;
 }
 

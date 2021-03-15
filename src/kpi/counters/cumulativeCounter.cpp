@@ -7,11 +7,11 @@ void CumulativeCounter<T>::set(T n)
 }
 
 template <class T>
-MaxCounter<T>::MaxCounter()
+CumulativeCounter<T>::CumulativeCounter()
 {
         std::cout << "CumulativeCounter ctor" << std::endl;
         Counter<T>::_defaultValue = 0;
         Counter<T>::_value.store(Counter<T>::_defaultValue);
-        std::cout << "Created counter. Size=" << sizeof(*this) << std::endl;
+        std::cout << "Created counter. Type=Cumulative Size=" << sizeof(*this) << std::endl;
 }
 
