@@ -13,3 +13,8 @@ OrdinaryCounter::OrdinaryCounter()
         std::cout << "Created counter. Type=Ordinary Size=" << sizeof(*this) << std::endl;
 }
 
+OrdinaryCounter::~OrdinaryCounter()
+{
+        std::cout << "OrdinaryCounter dtor" << std::endl;
+}
+

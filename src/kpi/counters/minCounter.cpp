@@ -14,3 +14,8 @@ MinCounter::MinCounter()
         std::cout << "Created counter. Type=Min Size=" << sizeof(*this) << std::endl;
 }
 
+MinCounter::~MinCounter()
+{
+        std::cout << "Mincounter dtor" << std::endl;
+}
+

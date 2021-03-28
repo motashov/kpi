@@ -13,3 +13,8 @@ MaxCounter::MaxCounter()
         Counter::_value.store(Counter::_defaultValue);
         std::cout << "Created counter. Type=Max Size=" << sizeof(*this) << std::endl;
 }
+
+MaxCounter::~MaxCounter()
+{
+        std::cout << "Maxcounter dtor" << std::endl;
+}

@@ -13,3 +13,8 @@ CumulativeCounter::CumulativeCounter()
         std::cout << "Created counter. Type=Cumulative Size=" << sizeof(*this) << std::endl;
 }
 
+CumulativeCounter::~CumulativeCounter()
+{
+        std::cout << "CumulativeCounter dtor" << std::endl;
+}
+

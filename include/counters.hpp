@@ -12,6 +12,8 @@ class Counter{
         std::uint64_t dump();
         virtual void set(std::uint64_t n) = 0;
         std::uint64_t get();
+        Counter();
+        virtual ~Counter();
 };
 
 #include "counters/minCounter.hpp"
